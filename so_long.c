@@ -6,11 +6,11 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/29 18:47:24 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/05/30 09:52:20 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx-linux/mlx.h"
+// #include "minilibx-linux/mlx.h"
 
 
 // #include<stdio.h> //ENLEVER
