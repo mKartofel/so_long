@@ -1,0 +1,1 @@
+gcc so_long.c -L ./minilibx-linux -lmlx -lXext -lX11
