@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/31 12:05:59 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/05/31 12:17:04 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,12 @@ void load_images(t_vars *vars)
 	ft_printf("%d %d\n",img_width, img_height);
 }
 
-/*Access elements of 2D map contained in str : *(map + i * N + j) */
-
 /*Draw the images to the correct coordinates on the window,
-according to their position in the map string*/
+according to their position in the map string
+Access elements of 2D map contained in str : map[(i * map_width + k) + j]
+i : height coordinate
+j : width coordinate
+k : offset to jump "\n" characters*/
 void draw_map(t_vars *vars)
 {
 	int i;
@@ -140,9 +142,11 @@ void draw_map(t_vars *vars)
 	k = 0;
 	while (vars->map[(i * vars->map_width + k) + j])
 	{
-		ft_printf("%c", vars->map[(i * vars->map_width + k) + j]);
+		// ft_printf("%c", vars->map[(i * vars->map_width + k) + j]);
 		// ft_printf("i=%d j=%d\n", i, j);
 		// ft_printf("el=%d\n", ((i * vars->map_width + k) + j));
+		if (vars->map[(i * vars->map_width + k) + j] == 'P')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, j * 50, i * 50);
 		j++;
 		if (vars->map[(i * vars->map_width + k) + j] == '\n'){
 			i++;
@@ -150,7 +154,6 @@ void draw_map(t_vars *vars)
 			j = 0;
 		}
 	}
-	// mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, 50, 50);
 }
 
 
@@ -174,10 +177,9 @@ int	main(void)
 	load_images(&vars);
 	draw_map(&vars);
 
-	// mlx_hook(vars.win, 2, 1L<<0, close_program, &vars);
-	// mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_key_hook(vars.win, key_hook, &vars);
 	
-	// mlx_loop(vars.mlx);
+	mlx_loop(vars.mlx);
 
-	// ft_printf("Cokkadoodle\n");
+	ft_printf("Cokkadoodle\n");
 }
