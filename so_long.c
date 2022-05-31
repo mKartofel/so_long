@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/30 20:01:39 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:14:57 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,42 +89,92 @@ char *read_map(char *filename)
 		}
 	}
 	return line;
-}	
-
-/*Accès aux éléments de la map 2D stockée dans une seule str : *(map + i * N + j) */
-
-int main()
-{
-	char * map = read_map("map.ber");
-	ft_printf("%s\n", map);
 }
 
-// int	main(void)
-// {
-// 	// void	*mlx;
-// 	// void	*mlx_win;
-// 	// t_data	img;
-// 	t_vars vars;
-// 	int		img_width;
-// 	int		img_height;
 
-// 	// vars = malloc(sizeof(t_vars));
-// 	vars.mlx = mlx_init();
-// 	vars.win = mlx_new_window(vars.mlx, 600, 400, "Hello world!");
-
-// 	// img.img = mlx_new_image(vars.mlx, img_width, img_height);
-// 	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-// 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
-
-// 	void * img = mlx_xpm_file_to_image(vars.mlx, "fox.xpm", &img_width, &img_height); //proteger
-// 	printf("%d %d\n",img_width, img_height);
+/*Calculate the height and width of the map*/
+void get_map_height_and_width(t_vars *vars)
+{
+	int i;
+	int height;
 	
-// 	mlx_put_image_to_window(vars.mlx, vars.win, img, 50, 50);
+	i = 0;
+	while (vars->map[i] && vars->map[i] != '\n')
+		i++;
+	vars->map_width = i;
+	ft_printf("width = %d\n", vars->map_width);
+	height = 1;
+	while (vars->map[i])
+	{
+		if (vars->map[i] == '\n')
+			height++;
+		i++;
+	}
+	vars->map_height = height;
+	ft_printf("height = %d\n", vars->map_height);
+}
 
-// 	// mlx_hook(vars.win, 2, 1L<<0, close_program, &vars);
-// 	mlx_key_hook(vars.win, key_hook, &vars);
+
+/*Load the images for the game assets from the .xpm files*/
+void load_images(t_vars *vars)
+{
+	int		img_width;
+	int		img_height;
+
+	vars->player_img = mlx_xpm_file_to_image(vars->mlx, "fox.xpm", &img_width, &img_height); //proteger
+	ft_printf("%d %d\n",img_width, img_height);
+}
+
+/*Access elements of 2D map contained in str : *(map + i * N + j) */
+
+/*Draw the images to the correct coordinates on the window,
+according to their position in the map string*/
+void draw_map(t_vars *vars)
+{
+	int i;
+	int j;
 	
-// 	mlx_loop(vars.mlx);
+	i = 0;
+	j = 0;
+	while (vars->map[i * vars->map_height + j])
+	{
+		// ft_printf("%c", vars->map[i * vars->map_height + j]);
+		// ft_printf("i=%d j=%d\n", i, j);
+		ft_printf("el=%d\n", (i * vars->map_height + j));
+		i++;
+		if (vars->map[i * vars->map_height + j] == '\n'){
+			i++;
+			j = 0;
+		}
+	}
+	// mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, 50, 50);
+}
 
-// 	printf("Cokkadoodle\n");
-// }
+
+int	main(void)
+{
+	// t_data	img;
+	t_vars vars;
+
+	vars.map = read_map("map.ber");
+	ft_printf("%s\n", vars.map );
+	get_map_height_and_width(&vars);
+
+	// vars = malloc(sizeof(t_vars));
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 600, 400, "Hello world!");
+
+	// img.img = mlx_new_image(vars.mlx, img_width, img_height);
+	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
+
+	load_images(&vars);
+	draw_map(&vars);
+
+	// mlx_hook(vars.win, 2, 1L<<0, close_program, &vars);
+	// mlx_key_hook(vars.win, key_hook, &vars);
+	
+	mlx_loop(vars.mlx);
+
+	ft_printf("Cokkadoodle\n");
+}

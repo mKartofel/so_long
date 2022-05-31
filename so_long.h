@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:25:26 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/30 18:29:04 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/05/31 10:05:16 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define SO_LONG_H
 
 #include "minilibx-linux/mlx.h"
-#include "get_next_line/get_next_line.h"
-#include "ft_printf/includes/ft_printf.h"
-#include "ft_printf/libft/libft.h"
+#include "libft/libft.h"
 
 // #include <stdio.h> //ENLEVER
 #include <stdlib.h>
@@ -25,7 +23,10 @@
 typedef struct	s_vars {
 	void	*mlx;
 	void	*win;
-	
+	void	*player_img;
+	char 	*map;
+	int		map_width;
+	int		map_height;
 }	t_vars;
 
 
