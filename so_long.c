@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/31 11:14:57 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/05/31 12:05:59 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,20 @@ void draw_map(t_vars *vars)
 {
 	int i;
 	int j;
+	int k;
 	
 	i = 0;
 	j = 0;
-	while (vars->map[i * vars->map_height + j])
+	k = 0;
+	while (vars->map[(i * vars->map_width + k) + j])
 	{
-		// ft_printf("%c", vars->map[i * vars->map_height + j]);
+		ft_printf("%c", vars->map[(i * vars->map_width + k) + j]);
 		// ft_printf("i=%d j=%d\n", i, j);
-		ft_printf("el=%d\n", (i * vars->map_height + j));
-		i++;
-		if (vars->map[i * vars->map_height + j] == '\n'){
+		// ft_printf("el=%d\n", ((i * vars->map_width + k) + j));
+		j++;
+		if (vars->map[(i * vars->map_width + k) + j] == '\n'){
 			i++;
+			k++;
 			j = 0;
 		}
 	}
@@ -174,7 +177,7 @@ int	main(void)
 	// mlx_hook(vars.win, 2, 1L<<0, close_program, &vars);
 	// mlx_key_hook(vars.win, key_hook, &vars);
 	
-	mlx_loop(vars.mlx);
+	// mlx_loop(vars.mlx);
 
-	ft_printf("Cokkadoodle\n");
+	// ft_printf("Cokkadoodle\n");
 }
