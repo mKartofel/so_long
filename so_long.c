@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 15:03:08 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:36:15 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,143 +29,12 @@
 // 	*(unsigned int*)dst = color;
 // }
 
-void map_error(char *error_msg, char *line, char *new_line)
-{
-	ft_putendl_fd(error_msg, 2);
-	if (line != NULL)
-		free(line);
-	if (new_line != NULL)
-		free(new_line);
-	exit(1);
-}
-
 int	close_program(t_vars *vars)
 {
 	mlx_loop_end(vars->mlx);
 	mlx_destroy_window(vars->mlx, vars->win);
 	// exit(1); //changer par un mlx_loop_end ?
 	return (0);
-}
-
-/*
-		 (-1,0)
-			^
-			|
-			|
-(0,-1)<---P(i,j)--->(0,+1)
-			|
-			|
-			ˇ
-		  (+1,0)
-
-*/
-void move_player(int d_i, int d_j, t_vars *vars)
-{
-	int new_i;
-	int new_j;
-
-	new_i = vars->player_i + d_i;
-	new_j = vars->player_j + d_j;
-
-	if (new_i < 0 || new_j < 0 || new_i > (vars->map_height - 1) || new_j > (vars->map_width - 1))
-	{
-		ft_printf("You can't go out of map !\n");
-		return ;
-	}
-	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == '1')
-	{
-		ft_printf("An obstacle is in the way !\n");
-		return ;
-	}
-	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == 'C')
-	{
-		ft_printf("Collectibles before = %d\n", vars->nb_collectibles);
-		vars->nb_collectibles--;
-		ft_printf("Collectibles left = %d\n", vars->nb_collectibles);
-	}
-	if (vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] == 'E')
-	{
-		vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = 'E';
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_img, vars->player_j * 50, vars->player_i * 50);
-	}
-	else
-	{
-		vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = '0';
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, vars->player_j * 50, vars->player_i * 50);
-	}
-	
-	vars->player_i = new_i;
-	vars->player_j = new_j;
-	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == 'E')
-	{
-		vars->map[(new_i * vars->map_width + new_i) + new_j] = 'E';
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->player_on_exit_img, new_j * 50, new_i * 50);
-
-	}
-	else 
-	{
-		vars->map[(new_i * vars->map_width + new_i) + new_j] = 'P';
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, new_j * 50, new_i * 50);
-	}
-	vars->movements++;
-	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == 'E' && vars->nb_collectibles == 0)
-	{
-		ft_printf("The end.\nFinal number of movements : %d\n", vars->movements);
-		close_program(vars);
-	}
-	else
-		ft_printf("Movements : %d\n", vars->movements);
-}
-
-int	key_hook(int keycode, t_vars *vars)
-{
-	// ft_printf("keycode = %d\n", keycode);
-	if (keycode == 65307)
-		close_program(vars);
-	else if (keycode == 119)
-		move_player(-1, 0, vars);
-	else if (keycode == 115)
-		move_player(1, 0, vars);
-	else if (keycode == 97)
-		move_player(0, -1, vars);
-	else if (keycode == 100)
-		move_player(0, 1, vars);
-	return (0);
-}
-
-/*Read the map contained in filename. Return
-a string representing the map*/
-char *read_map(char *filename)
-{
-	char *line;
-	char *new_line;
-	char *tmp;
-	int fd;
-	int read;
-
-	fd = open(filename, O_RDONLY);
-	if (!fd)
-		map_error("Error\nCould not open file", NULL, NULL);
-	line = get_next_line(fd);
-	if (!line)
-		map_error("Error\nget_next_line failed", NULL, NULL);
-	read = 1;
-	while(read != 0)
-	{
-		new_line = get_next_line(fd); //pas prot en cas d'erreur, probleme ?
-		if (!new_line)
-			read = 0;
-		else
-		{
-			tmp = line;
-			line = ft_strjoin(line, new_line);
-			if (!line)
-				map_error("Error\nft_strjoin failed", line, new_line);
-			free(tmp);
-			free(new_line);
-		}
-	}
-	return line;
 }
 
 

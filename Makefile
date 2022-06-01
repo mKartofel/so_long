@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 18:00:38 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/05/30 19:50:57 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/01 15:37:02 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ LIBFT_A = ./libft/libft.a
 NAME = so_long
 
 SRCS =	so_long.c\
+		move_player.c\
+		read_map.c\
 
 OBJS = ${SRCS:.c=.o}
 
