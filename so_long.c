@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 12:06:42 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:03:08 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,38 @@ void move_player(int d_i, int d_j, t_vars *vars)
 		vars->nb_collectibles--;
 		ft_printf("Collectibles left = %d\n", vars->nb_collectibles);
 	}
-	// ft_printf("initial case contains : %c\n", vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j]);
-	vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = '0';
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, vars->player_j * 50, vars->player_i * 50);
+	if (vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] == 'E')
+	{
+		vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = 'E';
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_img, vars->player_j * 50, vars->player_i * 50);
+	}
+	else
+	{
+		vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = '0';
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, vars->player_j * 50, vars->player_i * 50);
+	}
+	
 	vars->player_i = new_i;
 	vars->player_j = new_j;
-	vars->map[(new_i * vars->map_width + new_i) + new_j] = 'P';
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, new_j * 50, new_i * 50);
+	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == 'E')
+	{
+		vars->map[(new_i * vars->map_width + new_i) + new_j] = 'E';
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->player_on_exit_img, new_j * 50, new_i * 50);
+
+	}
+	else 
+	{
+		vars->map[(new_i * vars->map_width + new_i) + new_j] = 'P';
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, new_j * 50, new_i * 50);
+	}
 	vars->movements++;
-	ft_printf("Movements : %d\n", vars->movements);
+	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == 'E' && vars->nb_collectibles == 0)
+	{
+		ft_printf("The end.\nFinal number of movements : %d\n", vars->movements);
+		close_program(vars);
+	}
+	else
+		ft_printf("Movements : %d\n", vars->movements);
 }
 
 int	key_hook(int keycode, t_vars *vars)
@@ -179,6 +202,8 @@ void load_images(t_vars *vars)
 	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "grass.xpm", &img_width, &img_height); //proteger
 	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "tree.xpm", &img_width, &img_height); //proteger
 	vars->collectible_img = mlx_xpm_file_to_image(vars->mlx, "chicken.xpm", &img_width, &img_height); //proteger
+	vars->exit_img = mlx_xpm_file_to_image(vars->mlx, "hole.xpm", &img_width, &img_height); //proteger
+	vars->player_on_exit_img = mlx_xpm_file_to_image(vars->mlx, "fox_on_hole.xpm", &img_width, &img_height); //proteger
 }
 
 /*Draw the images to the correct coordinates on the window,
@@ -214,6 +239,8 @@ void draw_map(t_vars *vars)
 			vars->nb_collectibles++; //compter lors de verification map ?
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->collectible_img, j * 50, i * 50);
 		}
+		else if (vars->map[(i * vars->map_width + i) + j] == 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_img, j * 50, i * 50);
 		j++;
 		if (vars->map[(i * vars->map_width + i) + j] == '\n')
 		{
