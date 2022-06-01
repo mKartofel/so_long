@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 11:24:56 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:06:42 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,15 @@ void move_player(int d_i, int d_j, t_vars *vars)
 		ft_printf("An obstacle is in the way !\n");
 		return ;
 	}
+	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == 'C')
+	{
+		ft_printf("Collectibles before = %d\n", vars->nb_collectibles);
+		vars->nb_collectibles--;
+		ft_printf("Collectibles left = %d\n", vars->nb_collectibles);
+	}
 	// ft_printf("initial case contains : %c\n", vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j]);
 	vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = '0';
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, vars->player_j * 50, vars->player_i * 50);	
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, vars->player_j * 50, vars->player_i * 50);
 	vars->player_i = new_i;
 	vars->player_j = new_j;
 	vars->map[(new_i * vars->map_width + new_i) + new_j] = 'P';
@@ -90,7 +96,7 @@ void move_player(int d_i, int d_j, t_vars *vars)
 
 int	key_hook(int keycode, t_vars *vars)
 {
-	ft_printf("keycode = %d\n", keycode);
+	// ft_printf("keycode = %d\n", keycode);
 	if (keycode == 65307)
 		close_program(vars);
 	else if (keycode == 119)
@@ -170,10 +176,9 @@ void load_images(t_vars *vars)
 	int		img_height;
 
 	vars->player_img = mlx_xpm_file_to_image(vars->mlx, "fox.xpm", &img_width, &img_height); //proteger
-	ft_printf("%d %d\n",img_width, img_height);
 	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "grass.xpm", &img_width, &img_height); //proteger
 	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "tree.xpm", &img_width, &img_height); //proteger
-
+	vars->collectible_img = mlx_xpm_file_to_image(vars->mlx, "chicken.xpm", &img_width, &img_height); //proteger
 }
 
 /*Draw the images to the correct coordinates on the window,
@@ -204,6 +209,11 @@ void draw_map(t_vars *vars)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, j * 50, i * 50);
 		else if (vars->map[(i * vars->map_width + i) + j] == '1')
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->wall_img, j * 50, i * 50);
+		else if (vars->map[(i * vars->map_width + i) + j] == 'C')
+		{
+			vars->nb_collectibles++; //compter lors de verification map ?
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->collectible_img, j * 50, i * 50);
+		}
 		j++;
 		if (vars->map[(i * vars->map_width + i) + j] == '\n')
 		{
@@ -219,12 +229,13 @@ int	main(void)
 	// t_data	img;
 	t_vars vars;
 
+	vars.movements = 0;
+	vars.nb_collectibles = 0;
+
 	vars.map = read_map("map.ber");
 	ft_printf("%s\n", vars.map );
 	get_map_height_and_width(&vars);
 
-	vars.movements = 0;
-	
 	// vars = malloc(sizeof(t_vars));
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.map_width * 50, vars.map_height * 50, "so_long");
