@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:25:26 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 15:39:49 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:59:39 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void move_player(int d_i, int d_j, t_vars *vars);
 int	key_hook(int keycode, t_vars *vars);
 void load_images(t_vars *vars);
 void draw_map(t_vars *vars);
+void check_map(t_vars *vars);
 
 #endif
