@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/31 12:17:04 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 09:03:10 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int	main(void)
 
 	// vars = malloc(sizeof(t_vars));
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 600, 400, "Hello world!");
+	vars.win = mlx_new_window(vars.mlx, vars.map_width * 50, vars.map_height * 50, "so_long");
 
 	// img.img = mlx_new_image(vars.mlx, img_width, img_height);
 	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
