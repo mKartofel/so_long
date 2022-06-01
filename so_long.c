@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 11:16:15 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:24:56 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void move_player(int d_i, int d_j, t_vars *vars)
 	vars->player_j = new_j;
 	vars->map[(new_i * vars->map_width + new_i) + new_j] = 'P';
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player_img, new_j * 50, new_i * 50);
+	vars->movements++;
+	ft_printf("Movements : %d\n", vars->movements);
 }
 
 int	key_hook(int keycode, t_vars *vars)
@@ -117,7 +119,7 @@ char *read_map(char *filename)
 		map_error("Error\nCould not open file", NULL, NULL);
 	line = get_next_line(fd);
 	if (!line)
-		map_error("Error\nget_next_line failed1", NULL, NULL);
+		map_error("Error\nget_next_line failed", NULL, NULL);
 	read = 1;
 	while(read != 0)
 	{
@@ -221,6 +223,8 @@ int	main(void)
 	ft_printf("%s\n", vars.map );
 	get_map_height_and_width(&vars);
 
+	vars.movements = 0;
+	
 	// vars = malloc(sizeof(t_vars));
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.map_width * 50, vars.map_height * 50, "so_long");

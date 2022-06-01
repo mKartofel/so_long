@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:25:26 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 11:13:47 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:20:14 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_vars {
 	int		map_height;
 	int		player_i;
 	int		player_j;
+	int		movements;
 }	t_vars;
 
 void draw_map(t_vars *vars);
