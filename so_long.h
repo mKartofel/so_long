@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:25:26 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 10:24:27 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:13:47 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_vars {
 	void	*win;
 	void	*player_img;
 	void	*ground_img;
+	void	*wall_img;
 	char 	*map;
 	int		map_width;
 	int		map_height;

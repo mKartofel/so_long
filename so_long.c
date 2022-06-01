@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 10:29:12 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:16:15 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	close_program(t_vars *vars)
 	// exit(1); //changer par un mlx_loop_end ?
 	return (0);
 }
+
 /*
 		 (-1,0)
 			^
@@ -71,7 +72,12 @@ void move_player(int d_i, int d_j, t_vars *vars)
 		ft_printf("You can't go out of map !\n");
 		return ;
 	}
-	ft_printf("initial case contains : %c\n", vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j]);
+	if (vars->map[(new_i * vars->map_width + new_i) + new_j] == '1')
+	{
+		ft_printf("An obstacle is in the way !\n");
+		return ;
+	}
+	// ft_printf("initial case contains : %c\n", vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j]);
 	vars->map[(vars->player_i * vars->map_width + vars->player_i) + vars->player_j] = '0';
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, vars->player_j * 50, vars->player_i * 50);	
 	vars->player_i = new_i;
@@ -164,6 +170,7 @@ void load_images(t_vars *vars)
 	vars->player_img = mlx_xpm_file_to_image(vars->mlx, "fox.xpm", &img_width, &img_height); //proteger
 	ft_printf("%d %d\n",img_width, img_height);
 	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "grass.xpm", &img_width, &img_height); //proteger
+	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "tree.xpm", &img_width, &img_height); //proteger
 
 }
 
@@ -193,8 +200,11 @@ void draw_map(t_vars *vars)
 		}
 		else if (vars->map[(i * vars->map_width + i) + j] == '0')
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->ground_img, j * 50, i * 50);
+		else if (vars->map[(i * vars->map_width + i) + j] == '1')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->wall_img, j * 50, i * 50);
 		j++;
-		if (vars->map[(i * vars->map_width + i) + j] == '\n'){
+		if (vars->map[(i * vars->map_width + i) + j] == '\n')
+		{
 			i++;
 			j = 0;
 		}
