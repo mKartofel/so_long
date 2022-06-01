@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 18:00:38 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/01 15:37:02 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/01 15:40:02 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME = so_long
 SRCS =	so_long.c\
 		move_player.c\
 		read_map.c\
+		draw_map.c\
 
 OBJS = ${SRCS:.c=.o}
 
