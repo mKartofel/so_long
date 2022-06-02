@@ -6,28 +6,11 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 18:48:39 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 09:17:24 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// typedef struct	s_data {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }	t_data;
-
-
-// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	dst = data.addr + (y * data.line_length + x * (data.bits_per_pixel / 8));
-// 	*(unsigned int*)dst = color;
-// }
 
 int	close_program(t_vars *vars)
 {
@@ -37,14 +20,38 @@ int	close_program(t_vars *vars)
 	return (0);
 }
 
-int	main(void)
+void init_vars_struct(t_vars *vars)
+{
+	vars->mlx = NULL;
+	vars->win = NULL;
+	vars->player_img = NULL;
+	vars->ground_img = NULL;
+	vars->wall_img = NULL;
+	vars->collectible_img = NULL;
+	vars->exit_img = NULL;
+	vars->player_on_exit_img = NULL;
+	vars->map = NULL;
+	vars->map_width = 0;
+	vars->map_height = 0;
+	vars->player_i = 0;
+	vars->player_j = 0;
+	vars->movements = 0;
+	vars->nb_collectibles = 0;
+}
+
+int	main(int argc, char **argv)
 {
 	t_vars vars;
 
-	vars.movements = 0;
-	vars.nb_collectibles = 0;
+	if (argc != 2 ||  ft_strrchr(argv[1], '.') == NULL || ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", ft_strlen(argv[1])) != 0)
+	{
+		ft_putendl_fd("Error\nProgram usage : ./so_long <map_path>.ber", 2);
+		exit(1);
+	}
 
-	vars.map = read_map("map2.ber");
+	init_vars_struct(&vars);
+
+	vars.map = read_map(argv[1]);
 	ft_printf("%s\n", vars.map );
 	check_map(&vars);
 	

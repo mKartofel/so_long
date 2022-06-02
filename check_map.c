@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:51:39 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 18:59:51 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 08:46:56 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void check_map(t_vars *vars)
 		i++;
 		j++;
 	}
-	printf("j=%d width=%d\n", j, vars->map_width);
+	ft_printf("j=%d width=%d\n", j, vars->map_width);
 	if (j != vars->map_width)
 		map_error("Error\nMap is not rectangular", vars->map, NULL);
 	vars->map_height = height;
