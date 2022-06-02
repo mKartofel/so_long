@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:51:39 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/02 08:46:56 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 10:21:03 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void check_walls(t_vars *vars)
 	i = 0;
 	while(i < vars->map_height)
 	{
-		// printf("%c	%c\n", vars->map[(i * vars->map_width + i)], vars->map[(i * vars->map_width + i) + (vars->map_width - 1)]);
 		if (vars->map[(i * vars->map_width + i)] != '1' || vars->map[(i * vars->map_width + i) + (vars->map_width - 1)] != '1')
 			map_error("Error\nMap is not surrounded by walls", vars->map, NULL);
 		i++;

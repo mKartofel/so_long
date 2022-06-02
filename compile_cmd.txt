@@ -1,5 +1,0 @@
-Linux 42:
-gcc so_long.c -L ./minilibx-linux -lmlx -lXext -lX11
-
-Mac :
-gcc so_long.c -L ./minilibx-linux -lmlx -L/usr/X11/include/../lib -lXext -lX11

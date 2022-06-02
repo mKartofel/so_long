@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/02 10:13:04 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 10:27:33 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,10 @@ int	main(int argc, char **argv)
 	vars.win = mlx_new_window(vars.mlx, vars.map_width * 50, vars.map_height * 50, "so_long");
 	if (vars.win == NULL)
 		close_program(&vars);
-	ft_printf("HERE1\n");
-	load_images(&vars);
-	ft_printf("HERE2\n");
+	load_images(&vars);	
 	draw_map(&vars);
 	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 33, 1L << 5, close_program, &vars);
 	mlx_loop(vars.mlx);
 	free_vars(&vars);
 	ft_printf("Cokkadoodle\n");
