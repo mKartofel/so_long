@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 18:00:38 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/02 10:10:10 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/02 10:37:40 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,10 @@ LIBS = -L ./mlx -lmlx -L/usr/X11/include/../lib -lXext -lX11
 .c.o: ${INCLUDES}
 	${CC} ${FLAGS} -c $ $< -o ${<:.c=.o}
 
-all: makelibft ${NAME}
+all: makemlx makelibft ${NAME}
+
+makemlx:
+	${MAKE} -C ./mlx
 
 makelibft:
 	${MAKE} -C ./libft
@@ -45,6 +48,7 @@ ${NAME} : ${OBJS}
 	${CC} ${FLAGS} ${OBJS} ${LIBFT_A} -o ${NAME} ${LIBS}
 
 clean:
+	${MAKE} clean -C ./mlx
 	${MAKE} clean -C ./libft
 	${RM} *.o
 
