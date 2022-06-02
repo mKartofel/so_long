@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 18:00:38 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/01 15:52:03 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/02 10:10:10 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ RM = rm -f
 
 FLAGS = -Wall -Wextra -Werror -g
 
-LIBS = -L ./minilibx-linux -lmlx -L/usr/X11/include/../lib -lXext -lX11
+LIBS = -L ./mlx -lmlx -L/usr/X11/include/../lib -lXext -lX11
 
 .c.o: ${INCLUDES}
 	${CC} ${FLAGS} -c $ $< -o ${<:.c=.o}

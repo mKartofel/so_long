@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:39:11 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/02 10:03:03 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 10:12:26 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,23 @@ void load_images(t_vars *vars)
 	int		img_width;
 	int		img_height;
 
-	vars->player_img = mlx_xpm_file_to_image(vars->mlx, "fox.xpm", &img_width, &img_height);
+
+	vars->player_img = mlx_xpm_file_to_image(vars->mlx, "images/fox.xpm", &img_width, &img_height);
 	if (vars->player_img == NULL)
 		close_program(vars);
-	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "grass.xpm", &img_width, &img_height);
+	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "images/grass.xpm", &img_width, &img_height);
 	if (vars->ground_img == NULL)
 		close_program(vars);
-	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "tree.xpm", &img_width, &img_height);
+	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "images/tree.xpm", &img_width, &img_height);
 	if (vars->wall_img == NULL)
 		close_program(vars);
-	vars->collectible_img = mlx_xpm_file_to_image(vars->mlx, "chicken.xpm", &img_width, &img_height);
+	vars->collectible_img = mlx_xpm_file_to_image(vars->mlx, "images/chicken.xpm", &img_width, &img_height);
 	if (vars->collectible_img == NULL)
 		close_program(vars);
-	vars->exit_img = mlx_xpm_file_to_image(vars->mlx, "hole.xpm", &img_width, &img_height);
+	vars->exit_img = mlx_xpm_file_to_image(vars->mlx, "images/hole.xpm", &img_width, &img_height);
 	if (vars->exit_img == NULL)
 		close_program(vars);
-	vars->player_on_exit_img = mlx_xpm_file_to_image(vars->mlx, "fox_on_hole.xpm", &img_width, &img_height);
+	vars->player_on_exit_img = mlx_xpm_file_to_image(vars->mlx, "images/fox_on_hole.xpm", &img_width, &img_height);
 	if (vars->player_on_exit_img == NULL)
 		close_program(vars);
 }

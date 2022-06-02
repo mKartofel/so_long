@@ -6,14 +6,14 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:25:26 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/02 09:51:10 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 10:09:12 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "minilibx-linux/mlx.h"
+#include "mlx/mlx.h"
 #include "libft/libft.h"
 
 // #include <stdio.h> //ENLEVER
