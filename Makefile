@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 18:00:38 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/02 10:37:40 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/02 10:42:33 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ clean:
 fclean: clean
 	${MAKE} fclean -C ./libft
 	${RM} *.o
-	${RM} push_swap
+	${RM} so_long
 
 re: fclean all
 

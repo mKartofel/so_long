@@ -6,13 +6,13 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:32:34 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/02 09:56:28 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:35:36 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void map_error(char *error_msg, char *line, char *new_line)
+void	map_error(char *error_msg, char *line, char *new_line)
 {
 	ft_putendl_fd(error_msg, 2);
 	if (line != NULL)
@@ -22,15 +22,26 @@ void map_error(char *error_msg, char *line, char *new_line)
 	exit(1);
 }
 
+void	join_lines(char **line, char **new_line)
+{
+	char	*tmp;
+
+	tmp = *line;
+	*line = ft_strjoin(*line, *new_line);
+	if (*line == NULL)
+		map_error("Error\nft_strjoin failed", tmp, *new_line);
+	free(tmp);
+	free(*new_line);
+}
+
 /*Read the map contained in filename. Return
 a string representing the map*/
-char *read_map(char *filename)
+char	*read_map(char *filename)
 {
-	char *line;
-	char *new_line;
-	char *tmp;
-	int fd;
-	int read;
+	char	*line;
+	char	*new_line;
+	int		fd;
+	int		read;
 
 	fd = open(filename, O_RDONLY);
 	if (!fd)
@@ -39,21 +50,14 @@ char *read_map(char *filename)
 	if (!line)
 		map_error("Error\nget_next_line failed", NULL, NULL);
 	read = 1;
-	while(read != 0)
+	while (read != 0)
 	{
 		new_line = get_next_line(fd);
 		if (!new_line)
 			read = 0;
 		else
-		{
-			tmp = line;
-			line = ft_strjoin(line, new_line);
-			if (!line)
-				map_error("Error\nft_strjoin failed", line, new_line);
-			free(tmp);
-			free(new_line);
-		}
+			join_lines(&line, &new_line);
 	}
 	close(fd);
-	return line;
+	return (line);
 }

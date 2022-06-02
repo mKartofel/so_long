@@ -6,13 +6,11 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:45:16 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/02 10:27:33 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:40:14 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-
 
 int	close_program(t_vars *vars)
 {
@@ -21,7 +19,7 @@ int	close_program(t_vars *vars)
 	exit(1);
 }
 
-void free_vars(t_vars *vars)
+void	free_vars(t_vars *vars)
 {
 	free(vars->map);
 	if (vars->player_img != NULL)
@@ -43,10 +41,9 @@ void free_vars(t_vars *vars)
 		mlx_destroy_display(vars->mlx);
 		free(vars->mlx);
 	}
-
 }
 
-void init_vars_struct(t_vars *vars)
+void	init_vars_struct(t_vars *vars)
 {
 	vars->mlx = NULL;
 	vars->win = NULL;
@@ -69,7 +66,8 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 
-	if (argc != 2 ||  ft_strrchr(argv[1], '.') == NULL || ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", ft_strlen(argv[1])) != 0)
+	if (argc != 2 || ft_strrchr(argv[1], '.') == NULL || ft_strncmp(
+			ft_strrchr(argv[1], '.'), ".ber", ft_strlen(argv[1])) != 0)
 	{
 		ft_putendl_fd("Error\nProgram usage : ./so_long <map_path>.ber", 2);
 		exit(1);
@@ -77,18 +75,17 @@ int	main(int argc, char **argv)
 	init_vars_struct(&vars);
 	vars.map = read_map(argv[1]);
 	check_map(&vars);
-	
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
 		close_program(&vars);
-	vars.win = mlx_new_window(vars.mlx, vars.map_width * 50, vars.map_height * 50, "so_long");
+	vars.win = mlx_new_window(vars.mlx, vars.map_width * 50,
+			vars.map_height * 50, "so_long");
 	if (vars.win == NULL)
 		close_program(&vars);
-	load_images(&vars);	
+	load_images(&vars);
 	draw_map(&vars);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 33, 1L << 5, close_program, &vars);
 	mlx_loop(vars.mlx);
 	free_vars(&vars);
-	ft_printf("Cokkadoodle\n");
 }
