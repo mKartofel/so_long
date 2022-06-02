@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:32:34 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/01 15:51:55 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/02 09:56:28 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char *read_map(char *filename)
 	read = 1;
 	while(read != 0)
 	{
-		new_line = get_next_line(fd); //pas prot en cas d'erreur, probleme ?
+		new_line = get_next_line(fd);
 		if (!new_line)
 			read = 0;
 		else
